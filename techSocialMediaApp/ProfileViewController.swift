@@ -14,7 +14,6 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var techInterestsLabel: UILabel!
     
     var user: User = User.current!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()

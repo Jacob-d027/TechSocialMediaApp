@@ -23,6 +23,7 @@
 		F22F9F9E2B73E23B00CDEBBB /* PostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22F9F9D2B73E23B00CDEBBB /* PostController.swift */; };
 		F22F9FA02B73E25800CDEBBB /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22F9F9F2B73E25800CDEBBB /* ProfileController.swift */; };
 		F22F9FA22B73E38700CDEBBB /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22F9FA12B73E38700CDEBBB /* Comment.swift */; };
+		F25DED662B7522D8009C407B /* PostListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25DED652B7522D8009C407B /* PostListTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		F22F9F9D2B73E23B00CDEBBB /* PostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostController.swift; sourceTree = "<group>"; };
 		F22F9F9F2B73E25800CDEBBB /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		F22F9FA12B73E38700CDEBBB /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		F25DED652B7522D8009C407B /* PostListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				F22F9F8F2B713BF100CDEBBB /* ProfileViewController.swift */,
 				F22F9F972B73D85F00CDEBBB /* PostTableViewCell.swift */,
 				A3DFFA4D2901B8F400A28B8C /* Main.storyboard */,
+				F25DED652B7522D8009C407B /* PostListTableViewController.swift */,
 				A3DFFA502901B8F500A28B8C /* Assets.xcassets */,
 				A3DFFA522901B8F500A28B8C /* LaunchScreen.storyboard */,
 				A3DFFA552901B8F500A28B8C /* Info.plist */,
@@ -197,6 +200,7 @@
 				A3C2D4CF29082B1300C0AF5F /* AuthenticationController.swift in Sources */,
 				F22F9F902B713BF100CDEBBB /* ProfileViewController.swift in Sources */,
 				F22F9FA22B73E38700CDEBBB /* Comment.swift in Sources */,
+				F25DED662B7522D8009C407B /* PostListTableViewController.swift in Sources */,
 				A3C2D4D129082BF900C0AF5F /* API.swift in Sources */,
 				F22F9F982B73D85F00CDEBBB /* PostTableViewCell.swift in Sources */,
 				A3DFFA4A2901B8F400A28B8C /* SceneDelegate.swift in Sources */,

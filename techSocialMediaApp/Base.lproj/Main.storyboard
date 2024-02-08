@@ -178,10 +178,10 @@
             </objects>
             <point key="canvasLocation" x="2392" y="684"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Posts-->
         <scene sceneID="VKf-ro-alk">
             <objects>
-                <tableViewController id="ODF-ZK-3Jw" sceneMemberID="viewController">
+                <tableViewController id="ODF-ZK-3Jw" customClass="PostListTableViewController" customModule="techSocialMediaApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="h70-PX-lZk">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -198,10 +198,10 @@
                                             <rect key="frame" x="28" y="19" width="337" height="81"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tPN-kW-eOb">
-                                                    <rect key="frame" x="0.0" y="0.0" width="284" height="52.666666666666664"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="294" height="52.666666666666664"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="70" translatesAutoresizingMaskIntoConstraints="NO" id="jo6-cc-qRT">
-                                                            <rect key="frame" x="0.0" y="0.0" width="284" height="20.333333333333332"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="80" translatesAutoresizingMaskIntoConstraints="NO" id="jo6-cc-qRT">
+                                                            <rect key="frame" x="0.0" y="0.0" width="294" height="20.333333333333332"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="hZn-dd-V1Y">
                                                                     <rect key="frame" x="0.0" y="0.0" width="107" height="20.333333333333332"/>
@@ -220,8 +220,8 @@
                                                                         </label>
                                                                     </subviews>
                                                                 </stackView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i9O-X1-oIH">
-                                                                    <rect key="frame" x="177" y="0.0" width="107" height="20.333333333333332"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i9O-X1-oIH">
+                                                                    <rect key="frame" x="187" y="0.0" width="107" height="20.333333333333332"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -229,8 +229,8 @@
                                                             </subviews>
                                                         </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c7P-8I-wxU">
-                                                            <rect key="frame" x="0.0" y="28.333333333333336" width="284" height="24.333333333333336"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <rect key="frame" x="0.0" y="28.333333333333336" width="294" height="24.333333333333336"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -242,6 +242,7 @@
                                                         <constraint firstAttribute="trailing" secondItem="jo6-cc-qRT" secondAttribute="trailing" id="Fzi-8H-tga"/>
                                                         <constraint firstItem="c7P-8I-wxU" firstAttribute="top" secondItem="jo6-cc-qRT" secondAttribute="bottom" constant="8" id="JsV-da-wPl"/>
                                                         <constraint firstItem="c7P-8I-wxU" firstAttribute="top" secondItem="jo6-cc-qRT" secondAttribute="bottom" constant="8" id="bns-6C-tj0"/>
+                                                        <constraint firstAttribute="trailing" secondItem="jo6-cc-qRT" secondAttribute="trailing" id="r37-fq-92p"/>
                                                         <constraint firstItem="jo6-cc-qRT" firstAttribute="top" secondItem="tPN-kW-eOb" secondAttribute="top" id="wGn-uH-YnH"/>
                                                     </constraints>
                                                 </stackView>
@@ -271,6 +272,13 @@
                                         <constraint firstItem="hZB-iR-xE8" firstAttribute="top" secondItem="yuP-1f-XyB" secondAttribute="topMargin" constant="8" id="f90-xT-JfK"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="bodyTextLabel" destination="Qj6-NF-pMo" id="Y4h-Y2-6Ni"/>
+                                    <outlet property="dateLabel" destination="i9O-X1-oIH" id="ugs-J7-Lqn"/>
+                                    <outlet property="numOfLikesLabel" destination="0BS-RE-oUU" id="xVa-9g-8Zf"/>
+                                    <outlet property="titleLabel" destination="ABg-pv-RWT" id="pJk-F5-j9V"/>
+                                    <outlet property="userNameLabel" destination="c7P-8I-wxU" id="Z4e-Ml-FAJ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -278,7 +286,7 @@
                             <outlet property="delegate" destination="ODF-ZK-3Jw" id="nDQ-hd-wl7"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="i7B-Ie-s2J"/>
+                    <navigationItem key="navigationItem" title="Posts" id="i7B-Ie-s2J"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GlK-sb-jDo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -326,7 +334,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

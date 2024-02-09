@@ -16,6 +16,11 @@ struct Post: Decodable, Encodable {
     var likes: Int
     var userLiked: Bool
     var numComments: Int
-    var createdDate: String
+    var createdDateString: String
+    var createdDate: Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.date(from: createdDateString) ?? Date()
+    }
     var comments: [Comment]
 }

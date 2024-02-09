@@ -26,4 +26,12 @@ class PostTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    func configure(for post: Post) {
+        titleLabel.text = post.title
+        numOfLikesLabel.text = String(post.likes)
+        dateLabel.text = post.createdDateString
+        userNameLabel.text = post.authorUserName
+        bodyTextLabel.text = post.body
+        
+    }
 }

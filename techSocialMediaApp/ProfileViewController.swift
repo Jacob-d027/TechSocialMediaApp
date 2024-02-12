@@ -28,7 +28,7 @@ class ProfileViewController: UIViewController {
         actualNameLabel.text = user.firstName + " " + user.lastName
         bioLabel.text = "Enter bio here..."
         techInterestsLabel.text = "Enter tech interests here..."
-//        print(user.secret)
+        print(user.secret)
 //        print(user.userUUID)
     }
 

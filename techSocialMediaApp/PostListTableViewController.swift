@@ -18,7 +18,7 @@ class PostListTableViewController: UITableViewController {
         
         Task {
             do {
-                posts = try await postController.fetchPosts(userSecret: user.secret, pageNumber: <#T##Int?#>)
+                posts = try await postController.fetchPosts(userSecret: user.secret, pageNumber: 0)
             } catch {
                 print("There was an error: \(error.localizedDescription)")
             }
@@ -44,7 +44,7 @@ class PostListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as? PostTableViewCell else { return UITableViewCell()}
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
         
         cell.configure(for: posts[indexPath.row])
         

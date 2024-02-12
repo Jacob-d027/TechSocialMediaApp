@@ -9,22 +9,24 @@ import Foundation
 
 class PostController {
     enum PostError: Error, LocalizedError {
-        case postsNotFound
+        case postsNotFound, unexpectedStatusCode
     }
-    
     func fetchPosts(userSecret: UUID, pageNumber: Int?) async throws -> [Post] {
-        let session = URLSession.shared
-        var request = URLRequest(url: URL(string: "\(API.url)/posts")!)
+        var urlComponents = URLComponents(string: "\(API.url)/posts")!
+        urlComponents.queryItems = [
+            URLQueryItem(name: "userSecret", value: userSecret.uuidString),
+            URLQueryItem(name: "pageNumber", value: String(pageNumber ?? 0))
+        ]
         
-        let credentials: [String: Any] = ["userSecret": userSecret, "pageNumber": pageNumber ?? 0]
-        request.httpBody = try JSONSerialization.data(withJSONObject: credentials, options: .prettyPrinted)
+        let session = URLSession.shared
+        var request = URLRequest(url: urlComponents.url!)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let (data, response) = try await session.data(for: request)
         
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            throw PostError.postsNotFound
+            throw PostError.unexpectedStatusCode
         }
         
         let decoder = JSONDecoder()
@@ -32,4 +34,5 @@ class PostController {
         
         return posts
     }
+
 }

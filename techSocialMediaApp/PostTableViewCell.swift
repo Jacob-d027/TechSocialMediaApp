@@ -29,7 +29,7 @@ class PostTableViewCell: UITableViewCell {
     func configure(for post: Post) {
         titleLabel.text = post.title
         numOfLikesLabel.text = String(post.likes)
-        dateLabel.text = post.createdDateString
+        dateLabel.text = post.createdDate
         userNameLabel.text = post.authorUserName
         bodyTextLabel.text = post.body
         

@@ -19,10 +19,14 @@ class PostListTableViewController: UITableViewController {
         Task {
             do {
                 posts = try await postController.fetchPosts(userSecret: user.secret, pageNumber: 0)
+                print("Operation Successful")
+                tableView.reloadData()
             } catch {
-                print("There was an error: \(error.localizedDescription)")
+                print("There was an error: \(error)")
             }
+            
         }
+        
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

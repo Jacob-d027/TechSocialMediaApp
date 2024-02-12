@@ -8,21 +8,27 @@
 import Foundation
 
 struct Post: Decodable, Encodable {
-    var postid: String
+    var postid: Int
     var title: String
     var body: String
     var authorUserName: String
-    var authorUserID: String
+    var authorUserId: UUID
     var likes: Int
     var userLiked: Bool
     var numComments: Int
-    var createdDateString: String
-    var createdDate: Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.date(from: createdDateString) ?? Date()
+    var createdDate: String
+//    var comments: [Comment]
+    
+    enum PostCodingKeys: String, CodingKey {
+        case postid
+        case title
+        case body
+        case authorUserName
+        case authorUserId
+        case likes
+        case userLiked
+        case numComments
+        case createdDate
+//        case createdDate
     }
-    var comments: [Comment]
-    
-    
 }

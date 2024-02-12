@@ -11,10 +11,10 @@ class PostController {
     enum PostError: Error, LocalizedError {
         case postsNotFound, unexpectedStatusCode
     }
-    func fetchPosts(userSecret: UUID, pageNumber: Int?) async throws -> [Post] {
+    func fetchPosts(pageNumber: Int?) async throws -> [Post] {
         var urlComponents = URLComponents(string: "\(API.url)/posts")!
         urlComponents.queryItems = [
-            URLQueryItem(name: "userSecret", value: userSecret.uuidString),
+            URLQueryItem(name: "userSecret", value: User.current?.secret.uuidString),
             URLQueryItem(name: "pageNumber", value: String(pageNumber ?? 0))
         ]
         

@@ -18,7 +18,7 @@ class PostListTableViewController: UITableViewController {
         
         Task {
             do {
-                posts = try await postController.fetchPosts(userSecret: user.secret, pageNumber: 0)
+                posts = try await postController.fetchPosts(pageNumber: 0)
                 print("Operation Successful")
                 tableView.reloadData()
             } catch {

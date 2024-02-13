@@ -394,6 +394,7 @@
                                                     <buttonConfiguration key="configuration" style="filled" title="Submit"/>
                                                     <connections>
                                                         <action selector="submitButtonPressed:" destination="qBr-3D-oWK" eventType="touchUpInside" id="KRU-vX-Mil"/>
+                                                        <segue destination="zxN-H3-cYX" kind="unwind" identifier="UnwindToPostListTable" unwindAction="unwindToPostListTableWithSegue:" id="Ja3-Vz-lHB"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdE-kC-iri">
@@ -431,6 +432,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yoj-hW-B2T" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="zxN-H3-cYX" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3194.6564885496182" y="1428.8732394366198"/>
         </scene>

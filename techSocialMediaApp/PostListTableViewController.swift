@@ -54,14 +54,24 @@ class PostListTableViewController: UITableViewController {
         
         return cell
     }
-
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        <#code#>
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
+
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        <#code#>
+//    }
     
     
     // MARK: - Navigation
     
-    
+    @IBAction func unwindToPostListTable(segue: UIStoryboardSegue) {
+        guard let source = segue.source as? CreateNewPostTableViewController,
+              let newPost = source.post else { return }
+        
+        posts.append(newPost)
+        tableView.reloadData()
+    }
     
 }

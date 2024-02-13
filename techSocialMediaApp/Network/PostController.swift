@@ -8,6 +8,7 @@
 import Foundation
 
 class PostController {
+    
     enum PostError: Error, LocalizedError {
         case postsNotFound, unexpectedStatusCode
     }
@@ -45,7 +46,7 @@ class PostController {
         ]
         
         let requestBody: [String: Any] = [
-            "userSecret": User.current!.secret,
+            "userSecret": User.current!.secret.uuidString,
             "post": post
         ]
         

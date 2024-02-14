@@ -27,12 +27,8 @@ class PostListTableViewController: UITableViewController {
             
         }
         
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        tableView.rowHeight = UITableView.automaticDimension
+        
     }
 
     // MARK: - Table view data source
@@ -59,9 +55,6 @@ class PostListTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        <#code#>
-//    }
     
     
     // MARK: - Navigation

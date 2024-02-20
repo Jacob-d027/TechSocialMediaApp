@@ -10,7 +10,7 @@ import Foundation
 class PostController {
     
     enum PostError: Error, LocalizedError {
-        case postsNotFound, unexpectedStatusCode
+        case postsNotFound, unexpectedStatusCode, invalidUserSecret, serverError
     }
     
     func fetchPosts(pageNumber: Int?) async throws -> [Post] {
@@ -64,6 +64,37 @@ class PostController {
         let newPost = try decoder.decode(Post.self, from: data)
         
         return newPost
+    }
+    
+    func fetchUserPosts(pageNumber: Int?) async throws -> [Post] {
+        var urlComponents = URLComponents(string: "\(API.url)/userPosts")!
+        urlComponents.queryItems = [
+            URLQueryItem(name: "userSecret", value: User.current!.secret.uuidString),
+            URLQueryItem(name: "userUUID", value: User.current!.userUUID.uuidString),
+            URLQueryItem(name: "pageNumber", value: String(pageNumber ?? 0))
+        ]
+        
+        let session = URLSession.shared
+        var request = URLRequest(url: urlComponents.url!)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let (data, response) = try await session.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            let error = response as? HTTPURLResponse
+            if error?.statusCode == 400 {
+                throw PostError.invalidUserSecret
+            } else if error?.statusCode == 500 {
+                throw PostError.serverError
+            } else {
+                throw PostError.unexpectedStatusCode
+            }
+        }
+        
+        let decoder = JSONDecoder()
+        let userPosts = try decoder.decode([Post].self, from: data)
+        
+        return userPosts
     }
 
 }

@@ -59,6 +59,10 @@ class PostListTableViewController: UITableViewController {
     
     // MARK: - Navigation
     
+    @IBSegueAction func createNewPost(_ coder: NSCoder, sender: Any?) -> CreateNewPostTableViewController? {
+        return CreateNewPostTableViewController(coder: coder, sentPost: nil, formMode: .create)
+    }
+    
     @IBAction func unwindToPostListTable(segue: UIStoryboardSegue) {
         guard let source = segue.source as? CreateNewPostTableViewController,
               let newPost = source.post else { return }

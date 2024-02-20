@@ -9,16 +9,35 @@ import UIKit
 
 class CreateNewPostTableViewController: UITableViewController {
     
+    enum FormMode {
+        case create, edit
+    }
+    
+    var formMode: FormMode
     var post: Post?
     var postController = PostController()
     
     @IBOutlet weak var titleTextfield: UITextField!
     @IBOutlet weak var bodyTextView: UITextView!
     
+    init?(coder: NSCoder, sentPost: Post?, formMode: FormMode) {
+        self.post = sentPost
+        self.formMode = formMode
+        super.init(coder: coder)
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if formMode == .edit {
+            
+        }
         
     }
     
@@ -29,6 +48,10 @@ class CreateNewPostTableViewController: UITableViewController {
     @IBAction func submitButtonPressed(_ sender: Any) {
         guard let title = titleTextfield.text, let body = bodyTextView.text else { return }
         
+        
+        if formMode == .edit {
+            
+        }
         Task {
             do {
                 post = try await postController.createNewPost(title: title, bodyText: body)
@@ -41,7 +64,7 @@ class CreateNewPostTableViewController: UITableViewController {
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
-        
+        dismiss(animated: true, completion: nil)
     }
     
 }

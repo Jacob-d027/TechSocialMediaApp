@@ -8,9 +8,8 @@
 import Foundation
 
 class PostController {
-    
     enum PostError: Error, LocalizedError {
-        case postsNotFound, unexpectedStatusCode, invalidUserSecret, serverError
+        case postsNotFound, unexpectedStatusCode, invalidUserSecret, serverError, unableToEditPost, invalidUserID
     }
     
     func fetchPosts(pageNumber: Int?) async throws -> [Post] {
@@ -40,6 +39,7 @@ class PostController {
     func createNewPost(title: String, bodyText: String) async throws -> Post {
         let session = URLSession.shared
         var request = URLRequest(url: URL(string: "\(API.url)/createPost")!)
+        
         let post: [String: String] = [
             "title": title,
             "body": bodyText
@@ -97,4 +97,38 @@ class PostController {
         return userPosts
     }
 
+    func editExistingPost(postID: Int, title: String, body: String) async throws -> String {
+        let session = URLSession.shared
+        var request = URLRequest(url: URL(string: "\(API.url)/editPost")!)
+        
+        let post: [String: Any] = [
+            "postid": postID,
+            "title": title,
+            "body": body
+        ]
+        
+        let requestBody: [String: Any] = [
+            "userSecret": User.current!.secret.uuidString,
+            "post": post
+        ]
+        
+        request.httpMethod = "POST"
+        request.httpBody = try JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let (data, response) = try await session.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            throw PostError.unexpectedStatusCode
+        }
+        
+        let decoder = JSONDecoder()
+        let message = try decoder.decode(Message.self, from: data)
+        
+        return message.message
+    }
+}
+
+struct Message: Decodable {
+    var message: String
 }

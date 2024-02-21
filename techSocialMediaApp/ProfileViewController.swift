@@ -34,15 +34,11 @@ class ProfileViewController: UIViewController {
                 print("An error occurred: \(error)")
             }
         }
-        
-        
-        
         setupProfileView()
-        // Do any additional setup after loading the view.
+        
     }
     
     func setupProfileView() {
-        
         userNameLabel.text = user.userName
         actualNameLabel.text = user.firstName + " " + user.lastName
         bioLabel.text = "Enter bio here..."
@@ -55,21 +51,17 @@ class ProfileViewController: UIViewController {
      // MARK: - Navigation
     
     @IBAction func unwindToUserPostTableView(segue: UIStoryboardSegue) {
-        guard let sourceVC = segue.source as? CreateNewPostTableViewController, let post = sourceVC.post, var userPosts = userPosts else { return }
+        guard let sourceVC = segue.source as? CreateNewPostTableViewController, let post = sourceVC.post else { return }
         
         if let indexPath = userPostsTableView.indexPathForSelectedRow {
-            userPosts.remove(at: indexPath.row)
-            userPosts.insert(post, at: indexPath.row)
+            userPosts?.remove(at: indexPath.row)
+            userPosts?.insert(post, at: indexPath.row)
             userPostsTableView.deselectRow(at: indexPath, animated: true)
             userPostsTableView.reloadRows(at: [indexPath], with: .automatic)
-        } else {
-            userPosts.append(post)
-            userPostsTableView.insertRows(at: [IndexPath(row: userPosts.count - 1, section: 0)], with: .automatic)
         }
     }
      
     @IBSegueAction func editUserPost(_ coder: NSCoder, sender: Any?) -> CreateNewPostTableViewController? {
-        
         // Checks to make sure that cell tapped is actually a post, keeps indexpath of cell, and unwraps userPosts to work with.
         guard let cell = sender as? PostTableViewCell, let indexPath = userPostsTableView.indexPath(for: cell), let userPosts = userPosts else {
             return nil
@@ -98,13 +90,5 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard let userPosts = userPosts else { return }
-//        let editPost = userPosts[indexPath.row]
-//        
-//        performSegue(withIdentifier: "editUserPost", sender: editPost)
-//    }
-//    
     
 }

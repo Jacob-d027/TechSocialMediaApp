@@ -29,6 +29,6 @@ struct Post: Decodable, Encodable {
         case userLiked
         case numComments
         case createdDate
-//        case createdDate
     }
 }
+

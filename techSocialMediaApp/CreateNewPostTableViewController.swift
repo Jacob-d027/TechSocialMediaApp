@@ -36,7 +36,8 @@ class CreateNewPostTableViewController: UITableViewController {
         super.viewDidLoad()
         
         if formMode == .edit {
-            
+            titleTextfield.text = post?.title
+            bodyTextView.text = post?.body
         }
         
     }
@@ -48,23 +49,36 @@ class CreateNewPostTableViewController: UITableViewController {
     @IBAction func submitButtonPressed(_ sender: Any) {
         guard let title = titleTextfield.text, let body = bodyTextView.text else { return }
         
-        
         if formMode == .edit {
+            post?.body = body
+            post?.title = title
+            guard let post = post else { return }
             
-        }
-        Task {
-            do {
-                post = try await postController.createNewPost(title: title, bodyText: body)
-                performSegue(withIdentifier: "UnwindToPostListTable", sender: self)
-            } catch {
-                print("There was an error: \(error)")
+            Task {
+                do {
+                    let message = try await postController.editExistingPost(postID: post.postid, title: post.title, body: post.body)
+                    print(message)
+                    performSegue(withIdentifier: "UnwindToUserPostTableView", sender: self)
+                } catch {
+                    print("There was an error: \(error)")
+                }
+            }
+            
+        } else if formMode == .create {
+            Task {
+                do {
+                    post = try await postController.createNewPost(title: title, bodyText: body)
+                    performSegue(withIdentifier: "UnwindToPostListTable", sender: self)
+                } catch {
+                    print("There was an error: \(error)")
+                }
             }
         }
         
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        
     }
     
 }

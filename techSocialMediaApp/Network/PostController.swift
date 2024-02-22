@@ -97,6 +97,33 @@ class PostController {
         return userPosts
     }
 
+    func deletePost(postid: Int) async throws {
+        let session = URLSession.shared
+        var urlComponents = URLComponents(string: "\(API.url)/post")!
+        urlComponents.queryItems = [
+            URLQueryItem(name: "postid", value: String(postid)),
+            URLQueryItem(name: "userSecret", value: User.current?.secret.uuidString)
+        ]
+        
+        var request = URLRequest(url: urlComponents.url!)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "DELETE"
+        
+        let (_, response) = try await session.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            let error = response as? HTTPURLResponse
+            if error?.statusCode == 400 {
+                throw PostError.invalidUserSecret
+            } else if error?.statusCode == 500 {
+                throw PostError.serverError
+            } else {
+                throw PostError.unexpectedStatusCode
+            }
+        }
+        print("Deletion Network Call Completed.")
+    }
+    
     func editExistingPost(postID: Int, title: String, body: String) async throws -> String {
         let session = URLSession.shared
         var request = URLRequest(url: URL(string: "\(API.url)/editPost")!)

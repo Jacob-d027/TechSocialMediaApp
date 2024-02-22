@@ -8,9 +8,9 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
+    // MARK: Variables
     
     @IBOutlet weak var userPostsTableView: UITableView!
-    
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var actualNameLabel: UILabel!
     @IBOutlet weak var bioLabel: UILabel!
@@ -20,6 +20,8 @@ class ProfileViewController: UIViewController {
     private var userPosts: [Post]?
     var postController = PostController()
     
+    // MARK: ViewDidLoad
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         userPostsTableView.dataSource = self
@@ -27,7 +29,8 @@ class ProfileViewController: UIViewController {
         
         Task {
             do {
-                userPosts = try await postController.fetchUserPosts(pageNumber: 0)
+               let fetchedUserPosts = try await postController.fetchUserPosts(pageNumber: 0)
+                userPosts = fetchedUserPosts
                 userPostsTableView.reloadData()
                 print("It has reached this point")
             } catch {
@@ -38,14 +41,18 @@ class ProfileViewController: UIViewController {
         
     }
     
+    // MARK: Functions
+    
+    func deletePost(post: Post) async throws {
+        try await postController.deletePost(postid: post.postid)
+    }
+    
     func setupProfileView() {
         userNameLabel.text = user.userName
         actualNameLabel.text = user.firstName + " " + user.lastName
         bioLabel.text = "Enter bio here..."
         techInterestsLabel.text = "Enter tech interests here..."
         
-        //        print(user.secret)
-        //        print(user.userUUID)
     }
     
      // MARK: - Navigation
@@ -91,4 +98,31 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let postToDelete = userPosts![indexPath.row]
+            let alertController = UIAlertController(title: "Delete Post?", message: "Are you sure you want to delete this post?", preferredStyle: .alert)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+                Task {
+                    do {
+                        try await self.deletePost(post: postToDelete)
+                        self.userPosts?.remove(at: indexPath.row)
+                        self.userPostsTableView.deleteRows(at: [indexPath], with: .automatic)
+                    } catch {
+                        print("There was an error: \(error)")
+                    }
+                }
+            }
+            alertController.addAction(cancelAction)
+            alertController.addAction(deleteAction)
+            self.present(alertController, animated: true)
+            
+        }
+    }
 }

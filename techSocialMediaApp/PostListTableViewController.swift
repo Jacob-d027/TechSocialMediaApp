@@ -26,7 +26,6 @@ class PostListTableViewController: UITableViewController {
             }
             
         }
-        
         tableView.rowHeight = UITableView.automaticDimension
         
     }
@@ -65,7 +64,7 @@ class PostListTableViewController: UITableViewController {
         guard let source = segue.source as? CreateNewPostTableViewController,
               let newPost = source.post else { return }
         
-        posts.append(newPost)
+        posts.insert(newPost, at: 0)
         tableView.reloadData()
     }
     

@@ -19,11 +19,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         passwordTextField.isSecureTextEntry = true
         #if DEBUG
-//        Uncomment the three lines below and enter your credentials to
-//        automatically sign in everytime you launch the app.
         
-        emailTextField.text = "JACOB.DAVIS0246@STU.MTEC.EDU"
-        passwordTextField.text = "e226ccfe-22e1-4838-8634-bb3c034d7f4f"
         signInButtonTapped([])
         #endif
     }

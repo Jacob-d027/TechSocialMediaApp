@@ -41,6 +41,19 @@ class ProfileViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        Task {
+            do {
+               let fetchedUserPosts = try await postController.fetchUserPosts(pageNumber: 0)
+                userPosts = fetchedUserPosts
+                userPostsTableView.reloadData()
+                print("It has reached this point")
+            } catch {
+                print("An error occurred: \(error)")
+            }
+        }
+    }
+    
     // MARK: Functions
     
     func deletePost(post: Post) async throws {
@@ -98,6 +111,10 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        userPostsTableView.deselectRow(at: indexPath, animated: true)
+//    }
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -119,6 +136,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                     }
                 }
             }
+            
             alertController.addAction(cancelAction)
             alertController.addAction(deleteAction)
             self.present(alertController, animated: true)

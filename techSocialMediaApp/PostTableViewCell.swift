@@ -13,6 +13,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var bodyTextLabel: UILabel!
+    @IBOutlet weak var commentsLabel: UILabel!
     
     
     override func awakeFromNib() {
@@ -32,6 +33,6 @@ class PostTableViewCell: UITableViewCell {
         dateLabel.text = post.createdDate
         userNameLabel.text = post.authorUserName
         bodyTextLabel.text = post.body
-        
+        commentsLabel.text = "Comments: \(post.numComments)"
     }
 }

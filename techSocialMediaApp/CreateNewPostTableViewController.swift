@@ -34,6 +34,7 @@ class CreateNewPostTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.isNavigationBarHidden = true
         
         if formMode == .edit {
             titleTextfield.text = post?.title
@@ -78,7 +79,11 @@ class CreateNewPostTableViewController: UITableViewController {
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
-        
+        if formMode == .edit {
+            navigationController?.popViewController(animated: true)
+        } else {
+            dismiss(animated: true)
+        }
     }
     
 }
